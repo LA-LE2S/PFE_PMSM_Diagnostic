@@ -256,35 +256,86 @@ Seeds fixes (random_state)
 Tous les scripts utilisent random_state=42 pour garantir la reproductibilité :
 
 Table
+
 Opération	Script	Ligne	Seed
+
 Augmentation données	pmsm_perspective2_ml.py	Ligne 85	random_state=42
+
 Split train/test	pmsm_perspective2_ml.py	Ligne 102	random_state=42
+
 SVM classifier	pmsm_perspective2_ml.py	Ligne 110	random_state=42
+
 PCA visualization	pmsm_perspective2_ml.py	Ligne 145	random_state=42
+
 Bruit simulation	pmsm_simulation.py	Ligne 45	np.random.seed(42)
 
 
 Vérification de reproductibilité
+
 bash
+
 # Exécuter 2 fois et comparer les hash des outputs
+
 python scripts/pmsm_health_index.py
+
 md5sum resultats/ch5_health_index_barres.png > hash1.txt
+
 python scripts/pmsm_health_index.py
+
 md5sum resultats/ch5_health_index_barres.png > hash2.txt
+
 diff hash1.txt hash2.txt  # Doit être vide (identique)
 
 
 📊 Dataset Réel
+
 Source : Bacha et al. (2024)
+
 DOI : 10.5281/zenodo.13974503
+
 Licence : CC BY 4.0
+
 Contenu : 10,892 mesures réelles sur banc d'essai PMSM
+
 Conditions : F0 (normal), F1-F6 (défauts onduleur), F7 (court-circuit statorique), F8 (surchauffe)
+
 Le fichier dataset_reel/converted_dataset.csv est inclus dans ce dépôt pour faciliter la reproduction sans téléchargement externe.
+
 📜 Licence
 Ce projet est sous licence MIT.
 plain
 MIT License
+
+
+
+
+EN BREF 
+
+Pour reproduire les résultats du projet, les scripts doivent être exécutés dans un ordre logique correspondant aux étapes du pipeline. L’exécution doit se faire depuis le dossier principal du projet afin de conserver les chemins relatifs vers les dossiers dataset_reel et resultats.
+
+Ordre	Script à exécuter	Résultat attendu
+
+1	pmsm_simulation.py	Génération des signaux simulés du moteur PMSM en régime nominal et en présence des cinq défauts.
+
+2	pmsm_analyse_frequentielle.py	Calcul de la FFT, STFT, décomposition wavelet et extraction des dix-sept indicateurs.
+
+3	pmsm_health_index.py	Construction du Health Index, calcul des poids, génération des seuils et du rapport de diagnostic.
+
+4	explorer_dataset.py	Exploration initiale du dataset expérimental réel et génération d’un aperçu des données.
+
+5	bacha.py	Application du pipeline aux données réelles et génération des figures du Chapitre VI.
+
+6	pmsm_perspective1.py	Analyse complémentaire des données réelles et comparaison simulation versus réel.
+
+7	pmsm_perspective2_ml.py	Entraînement du SVM, validation croisée, PCA, importance des features et prédiction du Health Index.
+
+8	pmsm_interface.py	Visualisation synthétique des résultats dans une interface de diagnostic.
+
+Avant l’exécution des scripts, les principales dépendances Python doivent être installées. La commande suivante permet d’installer les bibliothèques nécessaires :
+pip install numpy scipy matplotlib pandas PyWavelets scikit-learn
+
+L’exécution complète du pipeline permet de régénérer les fichiers CSV, les figures et les rapports textuels utilisés dans le rapport. Les codes sources complets sont fournis dans le dossier numérique accompagnant ce document.
+
 
 Copyright (c) 2026 Layla Essadiq
 
