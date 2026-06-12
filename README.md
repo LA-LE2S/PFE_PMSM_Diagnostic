@@ -14,52 +14,82 @@ Année universitaire : 2025/2026
 Ce projet développe une méthodologie complète de diagnostic prédictif pour moteurs PMSM (Permanent Magnet Synchronous Motor) exploités dans les véhicules électriques du groupe Stellantis. L'approche repose exclusivement sur les signaux électriques déjà embarqués (courants de phase, vitesse, couple) sans capteur additionnel.
 
 Architecture du pipeline :
+
 plain
+
 Signaux électriques → Prétraitement → 17 indicateurs (FFT/STFT/Wavelet) 
 → Health Index (0-1) → SVM (classification) → Modèle prédictif (horizon 10 pas)
 → Rapport de diagnostic automatique
-🚀 Démarrage Rapide (5 minutes)
+
+🚀 Démarrage Rapide 
 Prérequis
 Python 3.12.2 (version exacte testée)
 Git
 ~500 Mo d'espace disque
 Installation
 bash
+
+
 # 1. Cloner le dépôt
 git clone https://github.com/ton-username/PFE_PMSM_Diagnostic.git
 cd PFE_PMSM_Diagnostic
 
+
+
 # 2. Créer l'environnement virtuel (recommandé)
 python3.12 -m venv venv
-
 # Windows:
 venv\Scripts\activate
 # Linux/macOS:
 source venv/bin/activate
 
+
+
 # 3. Installer les dépendances exactes
 pip install -r requirements.txt
+
 Vérification de l'installation
+
 bash
+
 python -c "import numpy; print('NumPy:', numpy.__version__)"
+
 python -c "import scipy; print('SciPy:', scipy.__version__)"
+
 python -c "import sklearn; print('Scikit-learn:', sklearn.__version__)"
+
 📁 Structure du Projet
+
 plain
+
 PFE_PMSM/
+
 │
+
 ├── README.md                    ← Ce fichier
+
 ├── requirements.txt             ← Versions exactes des dépendances
+
 ├── LICENCE.md                 ← Licence MIT (voir ci-dessous)
+
 │
+
 ├── 📂 scripts/                ← Scripts Python principaux (Annexe C)
+
 │   ├── pmsm_simulation.py           # Chapitre III - Simulation PMSM
+
 │   ├── pmsm_analyse_frequentielle.py # Chapitre IV - Analyse spectrale
+
 │   ├── pmsm_health_index.py         # Chapitre V - Health Index
+
 │   ├── bacha.py                     # Chapitre VI - Validation données réelles
+
 │   ├── explorer_dataset.py          # Exploration dataset Bacha
+
 │   ├── pmsm_perspective1.py         # Comparaison sim vs réel
+
 │   ├── pmsm_perspective2_ml.py      # Chapitre VII - Machine Learning
+
 │   └── pmsm_interface.py            # Interface de visualisation
 │
 ├── 📂 dataset_reel/           ← Données expérimentales (Annexe D)
