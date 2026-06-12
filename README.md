@@ -1,11 +1,18 @@
 # PFE_PMSM_Diagnostic
 PFE PMSM - Diagnostic Prédictif des Systèmes de Propulsion Électrique
+
 Auteur : Layla Essadiq
+
 École : ENSAM Rabat - Filière Énergie Électrique et Industrie Numérique
+
 Entreprise : AFD Technologies (Accenture) - Projet Stellantis
+
 Année universitaire : 2025/2026
+
 📋 Description du Projet
+
 Ce projet développe une méthodologie complète de diagnostic prédictif pour moteurs PMSM (Permanent Magnet Synchronous Motor) exploités dans les véhicules électriques du groupe Stellantis. L'approche repose exclusivement sur les signaux électriques déjà embarqués (courants de phase, vitesse, couple) sans capteur additionnel.
+
 Architecture du pipeline :
 plain
 Signaux électriques → Prétraitement → 17 indicateurs (FFT/STFT/Wavelet) 
